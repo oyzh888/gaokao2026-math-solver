@@ -47,6 +47,23 @@ MODELS = [
   dict(group="api", key="azure_gpt-5", model="GPT-5", vendor="OpenAI (Azure)", vcls="openai",
        q1="—", q2="—", q3i="—", q3ii="—", overall="— 超时", medal="",
        meta="reasoning effort 过重，多次超时未产出"),
+
+  # ===== 老模型组（看代际进步；纯 API，单次调用）=====
+  dict(group="legacy", key="azure_gpt-5-mini", model="GPT-5 mini", vendor="OpenAI (Azure)", vcls="openai",
+       q1="✅", q2="🟡", q3i="✅", q3ii="🟡", overall="🟡 接近", medal="",
+       meta="小模型却很扎实：(1) 正确算出 (0,3/2)，(3i) 严格，(3ii) 给出正确的『取 2^y→1 制造矛盾』构造思路但收尾略简"),
+  dict(group="legacy", key="gemini_gemini-2.5-flash-lite", model="Gemini 2.5 Flash-Lite", vendor="Google", vcls="google",
+       q1="✅", q2="🟡", q3i="🟡", q3ii="🟡", overall="🟡 思路对", medal="",
+       meta="老一档 flash-lite；(1) 正确，(2)(3) 中英混杂、反复试探，(3ii) 末步『this implies f is increasing』含糊"),
+  dict(group="legacy", key="bedrock_claude35_haiku", model="Claude 3.5 Haiku", vendor="Anthropic", vcls="anthropic",
+       q1="❌", q2="🟡", q3i="🟡", q3ii="🟡", overall="❌ 偏弱", medal="",
+       meta="2024-10；(1) 答错 (-1,2)，(2)(3) 仅条列要点、循环论证，未真正展开"),
+  dict(group="legacy", key="bedrock_claude3_sonnet", model="Claude 3 Sonnet", vendor="Anthropic", vcls="anthropic",
+       q1="❌", q2="🟡", q3i="❌", q3ii="❌", overall="❌ 偏弱", medal="",
+       meta="2024-02；(1) 答错 (-∞,-1)，(3i) 用『f(x)≠0 恒成立』错误推理，(3ii) 把要证的当条件——循环论证"),
+  dict(group="legacy", key="bedrock_claude3_haiku", model="Claude 3 Haiku", vendor="Anthropic", vcls="anthropic",
+       q1="❌", q2="❌", q3i="❌", q3ii="❌", overall="❌ 做不动", medal="",
+       meta="2024-03；最老一档；(1) 答错 {d<0}，各问基本复述题面/循环论证，体现两年来的代际差距"),
 ]
 
 md = markdown.Markdown(extensions=["fenced_code","tables"])
