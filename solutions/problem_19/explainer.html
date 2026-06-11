@@ -152,6 +152,14 @@ footer{text-align:center;color:var(--mut);font-size:.78rem;margin-top:30px;paddi
   <h2>为什么 $f(x_1)\le f(x_2)$ 能推出 $D(x_2)\subseteq D(x_1)$？</h2>
   <p style="margin:.3em 0;font-size:.95rem">$f$ 是奇函数 ⟹ 一条<b>整体上升</b>的曲线：负半轴 $2^x\in(0,1)$，正半轴 $-2^{-x}\in(-1,0)$。</p>
   <div class="intuition"><b>一句话直觉：</b>站得越低的点，越「容易」往上走 —— 能上升的位移更多。所以 $x_1$ 站得低（值更小），它的上升位移集合 $D(x_1)$ 就更大，把 $D(x_2)$ 整个包住。</div>
+  <div class="intuition" style="border-left-color:var(--gold);background:#1c1500;color:#f0d98c">
+    <b>❓ 为什么粉色($D(x_2)$)都在 $d>0$ 一侧、不在左边？</b><br>
+    因为 $D$ 装的是「迈几步 $d$」，不是「落在哪」。这里 $x_2=-1.2$ 在负半轴，
+    曲线 $f=2^x$ 是<b>往右上升</b>的：<br>
+    · 往<b>左</b>走($d<0$) → 到更小的负数 → 值更低 → ❌ 不收<br>
+    · 往<b>右</b>走($d>0$) → 值更高 → ✅ 收，直到迈到 $0$（即 $d=1.2$）为止。<br>
+    所以 $D(x_2)=(0,1.2)$ 全在右边。<b>「更高的点在右边」是因为曲线在上升</b> —— 这正是直觉的关键。
+  </div>
   <div class="figure">
     <svg id="svgP2" viewBox="0 0 600 250"></svg>
     <div class="legend"><span><i style="background:#ffce5c"></i>$x_1$（低，集合大）</span><span><i style="background:#ff8fb3"></i>$x_2$（高，集合小）</span><span><i style="background:#56e09a"></i>$D$ 区间</span></div>
@@ -290,6 +298,10 @@ function fP1(x){return x<0?Math.pow(2,x):1-x;}
   let dp="";for(let px=-2.4;px<=2.4;px+=0.04){dp+=(dp?"L":"M")+X(px)+" "+Y(fOdd(px));}
   svg.appendChild(el("path",{d:dp,fill:"none",stroke:"#5ec8ff","stroke-width":2.5}));
   const a=0.8,b=-1.2; // a=x1 低值, b=x2 高值
+  // x2 处画一条「向右走→更高」的箭头（直到 x=0），点明粉色为何在 d>0
+  svg.appendChild(el("path",{d:`M${X(b)} ${Y(fOdd(b))} Q${X(b/2)} ${Y(fOdd(b/2))-14} ${X(-0.02)} ${Y(fOdd(-0.02))}`,fill:"none",stroke:"#56e09a","stroke-width":2,"stroke-dasharray":"4 3"}));
+  svg.appendChild(el("path",{d:`M${X(-0.12)} ${Y(fOdd(-0.06))-9} L${X(-0.01)} ${Y(fOdd(-0.02))} L${X(-0.12)} ${Y(fOdd(-0.02))+2}`,fill:"none",stroke:"#56e09a","stroke-width":2}));
+  txt(svg,X(-0.95),Y(fOdd(-0.6))-20,"往右走 → 更高 → 收进 D","#56e09a",11);
   svg.appendChild(el("circle",{cx:X(a),cy:Y(fOdd(a)),r:7,fill:"#ffce5c"}));txt(svg,X(a)-58,Y(fOdd(a))+16,"x₁ 值低","#ffce5c",12);
   svg.appendChild(el("circle",{cx:X(b),cy:Y(fOdd(b)),r:7,fill:"#ff8fb3"}));txt(svg,X(b)-58,Y(fOdd(b))-8,"x₂ 值高","#ff8fb3",12);
   const xl=d=>300+d*52, Ax0=168, Ax1=178, Bx0=205, Bx1=215; // 两条 D 数轴的 y 范围
