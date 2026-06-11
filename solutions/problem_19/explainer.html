@@ -290,15 +290,24 @@ function fP1(x){return x<0?Math.pow(2,x):1-x;}
   let dp="";for(let px=-2.4;px<=2.4;px+=0.04){dp+=(dp?"L":"M")+X(px)+" "+Y(fOdd(px));}
   svg.appendChild(el("path",{d:dp,fill:"none",stroke:"#5ec8ff","stroke-width":2.5}));
   const a=0.8,b=-1.2; // a=x1 低值, b=x2 高值
-  svg.appendChild(el("circle",{cx:X(a),cy:Y(fOdd(a)),r:7,fill:"#ffce5c"}));txt(svg,X(a)+8,Y(fOdd(a))+16,"x₁ 值低","#ffce5c",12);
+  svg.appendChild(el("circle",{cx:X(a),cy:Y(fOdd(a)),r:7,fill:"#ffce5c"}));txt(svg,X(a)-58,Y(fOdd(a))+16,"x₁ 值低","#ffce5c",12);
   svg.appendChild(el("circle",{cx:X(b),cy:Y(fOdd(b)),r:7,fill:"#ff8fb3"}));txt(svg,X(b)-58,Y(fOdd(b))-8,"x₂ 值高","#ff8fb3",12);
-  const xl=d=>300+d*52;
-  function axis(yy,label,c){svg.appendChild(el("line",{x1:55,y1:yy,x2:560,y2:yy,stroke:"#3a4658"}));txt(svg,6,yy+4,label,c||"#93a1b5",12);}
-  axis(175,"D(x₁)","#ffce5c");axis(218,"D(x₂)","#ff8fb3");
-  svg.appendChild(el("rect",{x:xl(-3),y:168,width:xl(-0.8)-xl(-3),height:9,rx:2,fill:"#ffce5c",opacity:.85}));
-  svg.appendChild(el("rect",{x:xl(0),y:168,width:xl(3)-xl(0),height:9,rx:2,fill:"#ffce5c",opacity:.85}));
-  svg.appendChild(el("rect",{x:xl(0),y:211,width:xl(1.2)-xl(0),height:9,rx:2,fill:"#ff8fb3"}));
-  txt(svg,xl(1.4),216,"粉 ⊆ 黄 ✓","#56e09a",13);
+  const xl=d=>300+d*52, Ax0=168, Ax1=178, Bx0=205, Bx1=215; // 两条 D 数轴的 y 范围
+  function axis(yy,label,c){svg.appendChild(el("line",{x1:75,y1:yy,x2:560,y2:yy,stroke:"#3a4658"}));txt(svg,6,yy+4,label,c||"#93a1b5",12);}
+  // 标注：下方是位移 d 轴（与上方函数图是两套坐标）
+  txt(svg,75,150,"↓ 下面是「位移 d」数轴（绿点都从 d=0 起）","#93a1b5",11);
+  axis(173,"D(x₁)","#ffce5c");axis(210,"D(x₂)","#ff8fb3");
+  // d=0 竖直参考线，贯穿两条数轴 —— 让人一眼看到两段都从 0 开始
+  svg.appendChild(el("line",{x1:xl(0),y1:160,x2:xl(0),y2:222,stroke:"#56e09a","stroke-width":1.5,"stroke-dasharray":"3 3",opacity:.8}));
+  txt(svg,xl(0)-5,234,"d=0","#56e09a",11);
+  // 黄：D(x₁)=(-∞,-0.8]∪(0,∞)
+  svg.appendChild(el("rect",{x:xl(-3),y:Ax0,width:xl(-0.8)-xl(-3),height:10,rx:2,fill:"#ffce5c",opacity:.85}));
+  svg.appendChild(el("rect",{x:xl(0),y:Ax0,width:xl(3)-xl(0),height:10,rx:2,fill:"#ffce5c",opacity:.85}));
+  txt(svg,xl(-0.8)-2,Ax0-3,"−0.8","#ffce5c",10);
+  // 粉：D(x₂)=(0,1.2)
+  svg.appendChild(el("rect",{x:xl(0),y:Bx0,width:xl(1.2)-xl(0),height:10,rx:2,fill:"#ff8fb3"}));
+  txt(svg,xl(1.2)-2,Bx0-3,"1.2","#ff8fb3",10);
+  txt(svg,xl(2.0),Bx0+9,"粉色整段 ⊆ 黄色 ✓","#56e09a",13);
 })();
 
 // ---------- STEP 3 ----------
