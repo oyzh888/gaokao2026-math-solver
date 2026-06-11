@@ -66,7 +66,9 @@ MODELS = [
        meta="2024-03；最老一档；(1) 答错 {d<0}，各问基本复述题面/循环论证，体现两年来的代际差距"),
 ]
 
-md = markdown.Markdown(extensions=["fenced_code","tables"])
+# nl2br: 段内单换行 → <br>。Gemini 习惯段内单换行列点，不开此项 markdown 会把
+# 段内换行当空格，导致整段挤成一坨（"Gemini 看起来没换行"的真实原因）。
+md = markdown.Markdown(extensions=["fenced_code","tables","nl2br"])
 
 def to_html(key):
     f = RUNS / f"{key}.md"
