@@ -56,11 +56,11 @@ MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$
 
 <div class="card problem">
   <h2>📋 题面 <span class="tag">17 分</span></h2>
-  <p>已知函数 $f(x)$ 的定义域为 $\mathbb{R}$，且当 $x<0$ 时，$f(x)=2^x$。对任意 $x_0\in\mathbb{R}$，定义集合
-  $$D(x_0)=\{\,d\in\mathbb{R}\mid f(x_0+d)>f(x_0)\,\}.$$</p>
+  <p>已知函数 $f(x)$ 的定义域为 $\mathbb{R}$，且当 $x&lt;0$ 时，$f(x)=2^x$。对任意 $x_0\in\mathbb{R}$，定义集合
+  $$D(x_0)=\{\,d\in\mathbb{R}\mid f(x_0+d)&gt;f(x_0)\,\}.$$</p>
   <p><span class="qmark">(1)</span> 若当 $x\ge0$ 时，$f(x)=1-x$，求 $D(-1)$；</p>
   <p><span class="qmark">(2)</span> 若 $f(x)$ 是奇函数，$f(x_1)\le f(x_2)$，且 $x_1x_2\ne0$，证明：$D(x_2)\subseteq D(x_1)$；</p>
-  <p><span class="qmark">(3)</span> 设 $f(x)$ 满足：① 若 $f(x_1)\le f(x_2)$，则 $D(x_2)\subseteq D(x_1)$；② 当 $0<x<1$ 时，$f(x)<f(0)$。</p>
+  <p><span class="qmark">(3)</span> 设 $f(x)$ 满足：① 若 $f(x_1)\le f(x_2)$，则 $D(x_2)\subseteq D(x_1)$；② 当 $0&lt;x&lt;1$ 时，$f(x)&lt;f(0)$。</p>
   <p style="margin-left:1.5em">(i) 证明：$f(0)\ge1$；&nbsp;&nbsp;(ii) 证明：$f(x)$ 在区间 $(0,+\infty)$ 单调递增。</p>
 </div>
 
@@ -68,40 +68,40 @@ MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$
   <h2>🤖 Claude 的解答</h2>
 
   <h3>(1) 求 $D(-1)$</h3>
-  <p>$f(-1)=2^{-1}=\tfrac12$。令 $x=-1+d$，要 $f(-1+d)>\tfrac12$：</p>
+  <p>$f(-1)=2^{-1}=\tfrac12$。令 $x=-1+d$，要 $f(-1+d)&gt;\tfrac12$：</p>
   <div class="box">
-    <p>• $d<1$（即 $x<0$）：$2^{-1+d}>2^{-1}\iff d>0$，得 $0<d<1$。</p>
-    <p>• $d\ge1$（即 $x\ge0$）：$1-(-1+d)=2-d>\tfrac12\iff d<\tfrac32$，得 $1\le d<\tfrac32$。</p>
+    <p>• $d&lt;1$（即 $x&lt;0$）：$2^{-1+d}&gt;2^{-1}\iff d&gt;0$，得 $0&lt;d&lt;1$。</p>
+    <p>• $d\ge1$（即 $x\ge0$）：$1-(-1+d)=2-d&gt;\tfrac12\iff d&lt;\tfrac32$，得 $1\le d&lt;\tfrac32$。</p>
     <p>合并：$\boxed{D(-1)=\left(0,\tfrac32\right)}$</p>
   </div>
 
   <h3>(2) 奇函数情形</h3>
-  <p>奇函数 ⟹ $f(0)=0$，$x>0$ 时 $f(x)=-2^{-x}$，于是
-  $$f(x)=\begin{cases}2^x,&x<0\\0,&x=0\\-2^{-x},&x>0\end{cases}\qquad
-  D(x)=\begin{cases}(0,-x),&x<0\\(-\infty,-x]\cup(0,+\infty),&x>0\end{cases}$$</p>
+  <p>奇函数 ⟹ $f(0)=0$，$x&gt;0$ 时 $f(x)=-2^{-x}$，于是
+  $$f(x)=\begin{cases}2^x,&x&lt;0\\0,&x=0\\-2^{-x},&x&gt;0\end{cases}\qquad
+  D(x)=\begin{cases}(0,-x),&x&lt;0\\(-\infty,-x]\cup(0,+\infty),&x&gt;0\end{cases}$$</p>
   <p>由 $f(x_1)\le f(x_2)$ 且 $x_1x_2\ne0$ 分类讨论：</p>
   <div class="box">
-    <p>• 同负：$x_1\le x_2<0\Rightarrow(0,-x_2)\subseteq(0,-x_1)$ ✓</p>
-    <p>• 同正：$0<x_1\le x_2\Rightarrow(-\infty,-x_2]\subseteq(-\infty,-x_1]$ ✓</p>
-    <p>• $x_1>0,x_2<0$：$D(x_2)=(0,-x_2)\subseteq(0,+\infty)\subseteq D(x_1)$ ✓</p>
-    <p>• $x_1<0,x_2>0$：前提 $f(x_1)\le f(x_2)$ 不成立，无需证。</p>
+    <p>• 同负：$x_1\le x_2&lt;0\Rightarrow(0,-x_2)\subseteq(0,-x_1)$ ✓</p>
+    <p>• 同正：$0&lt;x_1\le x_2\Rightarrow(-\infty,-x_2]\subseteq(-\infty,-x_1]$ ✓</p>
+    <p>• $x_1&gt;0,x_2&lt;0$：$D(x_2)=(0,-x_2)\subseteq(0,+\infty)\subseteq D(x_1)$ ✓</p>
+    <p>• $x_1&lt;0,x_2&gt;0$：前提 $f(x_1)\le f(x_2)$ 不成立，无需证。</p>
   </div>
   <p>故 $D(x_2)\subseteq D(x_1)$。$\blacksquare$</p>
 
   <h3>(3)(i) 证 $f(0)\ge1$</h3>
-  <p>反设 $f(0)<1$。因 $x\to0^-$ 时 $2^x\to1$，取 $x_0<0$ 充分接近 $0$ 使 $f(0)<2^{x_0}=f(x_0)<1$。由 ① 得 $D(x_0)\subseteq D(0)$。</p>
+  <p>反设 $f(0)&lt;1$。因 $x\to0^-$ 时 $2^x\to1$，取 $x_0&lt;0$ 充分接近 $0$ 使 $f(0)&lt;2^{x_0}=f(x_0)&lt;1$。由 ① 得 $D(x_0)\subseteq D(0)$。</p>
   <div class="box">
-    取 $d=-\tfrac{x_0}{2}>0$：$x_0+d=\tfrac{x_0}{2}<0$，$f(x_0+d)=2^{x_0/2}>2^{x_0}=f(x_0)$，故 $d\in D(x_0)$。又令 $x_0$ 足够接近 $0$ 使 $0<d<1$，由 ② 得 $f(d)<f(0)$，即 $d\notin D(0)$。与 $D(x_0)\subseteq D(0)$ 矛盾。
+    取 $d=-\tfrac{x_0}{2}&gt;0$：$x_0+d=\tfrac{x_0}{2}&lt;0$，$f(x_0+d)=2^{x_0/2}&gt;2^{x_0}=f(x_0)$，故 $d\in D(x_0)$。又令 $x_0$ 足够接近 $0$ 使 $0&lt;d&lt;1$，由 ② 得 $f(d)&lt;f(0)$，即 $d\notin D(0)$。与 $D(x_0)\subseteq D(0)$ 矛盾。
   </div>
   <p>故 $\boxed{f(0)\ge1}$。$\blacksquare$</p>
 
   <h3>(3)(ii) 证 $f$ 在 $(0,+\infty)$ 单调递增</h3>
-  <p><b>关键引理 P：</b>对 $0<u<1$ 有 $f(u)\le2^{u-1}<1$。</p>
+  <p><b>关键引理 P：</b>对 $0&lt;u&lt;1$ 有 $f(u)\le2^{u-1}&lt;1$。</p>
   <div class="box">
-    反设 $f(u)>2^{u-1}=f(u-1)$（$u-1<0$）。由 ① 得 $D(u)\subseteq D(u-1)$。
-    取 $d=-u$：由 ② 知 $f(u)<f(0)$ 故 $-u\in D(u)$；而 $f(u-1)=2^{u-1}>\tfrac12=f(-1)$ 故 $-u\notin D(u-1)$ —— 矛盾。
+    反设 $f(u)&gt;2^{u-1}=f(u-1)$（$u-1&lt;0$）。由 ① 得 $D(u)\subseteq D(u-1)$。
+    取 $d=-u$：由 ② 知 $f(u)&lt;f(0)$ 故 $-u\in D(u)$；而 $f(u-1)=2^{u-1}&gt;\tfrac12=f(-1)$ 故 $-u\notin D(u-1)$ —— 矛盾。
   </div>
-  <p>设 $0<x_1<x_2$，$h=x_2-x_1$。反设 $f(x_2)\le f(x_1)$，由 ① 得 $D(x_1)\subseteq D(x_2)$。利用负半轴 $f=2^x$ 的严格单调性与引理 P，可在 $D(x_1)$ 中构造平移量 $d^\*$ 使 $x_1+d^\*$ 落到负半轴（值 $>f(x_1)$，故 $d^\*\in D(x_1)$），而 $x_2+d^\*$ 处的值被引理 P 上界压制至 $\le f(x_2)$（即 $d^\*\notin D(x_2)$）—— 与 $D(x_1)\subseteq D(x_2)$ 矛盾。故 $f(x_2)>f(x_1)$，$f$ 在 $(0,+\infty)$ 严格递增。$\blacksquare$</p>
+  <p>设 $0&lt;x_1&lt;x_2$，$h=x_2-x_1$。反设 $f(x_2)\le f(x_1)$，由 ① 得 $D(x_1)\subseteq D(x_2)$。利用负半轴 $f=2^x$ 的严格单调性与引理 P，可在 $D(x_1)$ 中构造平移量 $d^\*$ 使 $x_1+d^\*$ 落到负半轴（值 $&gt;f(x_1)$，故 $d^\*\in D(x_1)$），而 $x_2+d^\*$ 处的值被引理 P 上界压制至 $\le f(x_2)$（即 $d^\*\notin D(x_2)$）—— 与 $D(x_1)\subseteq D(x_2)$ 矛盾。故 $f(x_2)&gt;f(x_1)$，$f$ 在 $(0,+\infty)$ 严格递增。$\blacksquare$</p>
 </div>
 
 <div class="card">

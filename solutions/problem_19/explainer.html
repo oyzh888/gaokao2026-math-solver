@@ -122,7 +122,7 @@ footer{text-align:center;color:var(--mut);font-size:.78rem;margin-top:30px;paddi
 <section class="step" id="s1">
   <div class="lead">第 (1) 问 · 热身</div>
   <h2>求 $D(-1)$</h2>
-  <p style="margin:.3em 0;font-size:.95rem">这里 $f(x)=2^x\,(x<0)$，$f(x)=1-x\,(x\ge0)$。起点值 $f(-1)=2^{-1}=0.5$。<br>要找所有让 $f(-1+d)>0.5$ 的 $d$。</p>
+  <p style="margin:.3em 0;font-size:.95rem">这里 $f(x)=2^x\,(x&lt;0)$，$f(x)=1-x\,(x\ge0)$。起点值 $f(-1)=2^{-1}=0.5$。<br>要找所有让 $f(-1+d)&gt;0.5$ 的 $d$。</p>
   <div class="figure">
     <svg id="svgP1" viewBox="0 0 600 240"></svg>
     <div class="numpad">
@@ -153,11 +153,11 @@ footer{text-align:center;color:var(--mut);font-size:.78rem;margin-top:30px;paddi
   <p style="margin:.3em 0;font-size:.95rem">$f$ 是奇函数 ⟹ 一条<b>整体上升</b>的曲线：负半轴 $2^x\in(0,1)$，正半轴 $-2^{-x}\in(-1,0)$。</p>
   <div class="intuition"><b>一句话直觉：</b>站得越低的点，越「容易」往上走 —— 能上升的位移更多。所以 $x_1$ 站得低（值更小），它的上升位移集合 $D(x_1)$ 就更大，把 $D(x_2)$ 整个包住。</div>
   <div class="intuition" style="border-left-color:var(--gold);background:#1c1500;color:#f0d98c">
-    <b>❓ 为什么粉色($D(x_2)$)都在 $d>0$ 一侧、不在左边？</b><br>
+    <b>❓ 为什么粉色($D(x_2)$)都在 $d&gt;0$ 一侧、不在左边？</b><br>
     因为 $D$ 装的是「迈几步 $d$」，不是「落在哪」。这里 $x_2=-1.2$ 在负半轴，
     曲线 $f=2^x$ 是<b>往右上升</b>的：<br>
-    · 往<b>左</b>走($d<0$) → 到更小的负数 → 值更低 → ❌ 不收<br>
-    · 往<b>右</b>走($d>0$) → 值更高 → ✅ 收，直到迈到 $0$（即 $d=1.2$）为止。<br>
+    · 往<b>左</b>走($d&lt;0$) → 到更小的负数 → 值更低 → ❌ 不收<br>
+    · 往<b>右</b>走($d&gt;0$) → 值更高 → ✅ 收，直到迈到 $0$（即 $d=1.2$）为止。<br>
     所以 $D(x_2)=(0,1.2)$ 全在右边。<b>「更高的点在右边」是因为曲线在上升</b> —— 这正是直觉的关键。
   </div>
   <div class="figure">
@@ -171,15 +171,15 @@ footer{text-align:center;color:var(--mut);font-size:.78rem;margin-top:30px;paddi
 <section class="step" id="s3">
   <div class="lead">第 (3) 问 · 压轴之眼</div>
   <h2>从「局部线索」逼出「整体单调」</h2>
-  <p style="margin:.3em 0;font-size:.95rem">只知道两条抽象规则（① 值低集合大；② $0<x<1$ 时 $f(x)<f(0)$）和负半轴 $f=2^x$，要证 $f(0)\ge1$ 且 $f$ 在 $(0,+\infty)$ 递增。</p>
+  <p style="margin:.3em 0;font-size:.95rem">只知道两条抽象规则（① 值低集合大；② $0&lt;x&lt;1$ 时 $f(x)&lt;f(0)$）和负半轴 $f=2^x$，要证 $f(0)\ge1$ 且 $f$ 在 $(0,+\infty)$ 递增。</p>
   <div class="tabs"><button class="on" data-t="i">(i) 证 $f(0)\ge1$</button><button data-t="ii">(ii) 证单调递增</button></div>
   <div id="t-i" class="intuition">
-    <b>反证：</b>假设 $f(0)<1$。因为 $x\to0^-$ 时 $2^x\to1$，能取一个紧贴 0 的 $x_0<0$，使 $f(0)<f(x_0)<1$。<br>
-    由规则① 得 $D(x_0)\subseteq D(0)$。但位移 $d=-x_0/2$ 让 $x_0$ 沿指数段升高 ⟹ $d\in D(x_0)$；可 $0<d<1$ 时规则②说 $f(d)<f(0)$ ⟹ $d\notin D(0)$。<b>矛盾！</b>所以 $f(0)\ge1$。
+    <b>反证：</b>假设 $f(0)&lt;1$。因为 $x\to0^-$ 时 $2^x\to1$，能取一个紧贴 0 的 $x_0&lt;0$，使 $f(0)&lt;f(x_0)&lt;1$。<br>
+    由规则① 得 $D(x_0)\subseteq D(0)$。但位移 $d=-x_0/2$ 让 $x_0$ 沿指数段升高 ⟹ $d\in D(x_0)$；可 $0&lt;d&lt;1$ 时规则②说 $f(d)&lt;f(0)$ ⟹ $d\notin D(0)$。<b>矛盾！</b>所以 $f(0)\ge1$。
   </div>
   <div id="t-ii" class="intuition" style="display:none">
-    <b>引理 P（点睛）：</b>对 $0<u<1$，必有 $f(u)\le 2^{u-1}<1$（下面红色虚线就是这个「天花板」）。<br>
-    否则 $f(u)>f(u-1)=2^{u-1}$，由① 得 $D(u)\subseteq D(u-1)$，却能找到位移 $-u\in D(u)$ 而 $\notin D(u-1)$ —— 矛盾。<br>
+    <b>引理 P（点睛）：</b>对 $0&lt;u&lt;1$，必有 $f(u)\le 2^{u-1}&lt;1$（下面红色虚线就是这个「天花板」）。<br>
+    否则 $f(u)&gt;f(u-1)=2^{u-1}$，由① 得 $D(u)\subseteq D(u-1)$，却能找到位移 $-u\in D(u)$ 而 $\notin D(u-1)$ —— 矛盾。<br>
     这把<b>负半轴的已知信息「灌」进了未知的正半轴</b>，压住 $(0,1)$ 上的取值，再用同样的「找一个位移制造矛盾」手法，逼出 $(0,+\infty)$ 严格递增。这一步被一线老师称为「考场近废题」。
   </div>
   <div class="figure">
