@@ -2,64 +2,119 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>动画讲解 · 2026新高考I卷数学第19题</title>
 <script>
-MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};
+MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},svg:{fontCache:'global',scale:0.95},chtml:{scale:0.95}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 <style>
 :root{--bg:#0b0f17;--card:#141b26;--ink:#e8eef6;--mut:#93a1b5;--acc:#5ec8ff;--gold:#ffce5c;--ok:#56e09a;--pink:#ff8fb3;--line:#26303f;}
-*{box-sizing:border-box}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px}
 body{margin:0;background:linear-gradient(180deg,#0b0f17,#0d1320);color:var(--ink);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;line-height:1.7}
-.wrap{max-width:880px;margin:0 auto;padding:28px 18px 90px}
-header{text-align:center;padding:30px 0 16px}
-header h1{margin:0 0 6px;font-size:1.6rem;background:linear-gradient(90deg,var(--acc),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
-header .sub{color:var(--mut);font-size:.92rem}
-.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 22px;margin:22px 0;opacity:0;transform:translateY(24px);transition:.7s cubic-bezier(.2,.7,.3,1)}
+/* 关键：约束 MathJax 输出尺寸，避免手机上公式撑满屏 */
+mjx-container[jax="SVG"]{font-size:100% !important;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:-0.1em}
+mjx-container[jax="SVG"] svg{max-width:100%;height:auto}
+mjx-container[display="true"]{margin:.4em 0 !important}
+h1 mjx-container,h2 mjx-container{font-size:100% !important}
+.wrap{max-width:880px;margin:0 auto;padding:20px 14px 90px}
+header{text-align:center;padding:20px 0 10px}
+header h1{margin:0 0 6px;font-size:1.35rem;background:linear-gradient(90deg,var(--acc),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+header .sub{color:var(--mut);font-size:.85rem}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 16px;margin:18px 0;opacity:0;transform:translateY(20px);transition:.6s cubic-bezier(.2,.7,.3,1)}
 .step.in{opacity:1;transform:none}
-.step h2{margin:0 0 4px;font-size:1.2rem;color:var(--acc)}
-.step .lead{color:var(--gold);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
-.intuition{background:#10202b;border-left:3px solid var(--acc);padding:10px 14px;border-radius:8px;margin:14px 0;color:#bfe6ff}
-.figure{background:#0a0f18;border:1px solid var(--line);border-radius:12px;padding:14px;margin:14px 0}
-.ctrl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:.9rem}
-input[type=range]{flex:1;min-width:160px;accent-color:var(--acc)}
-.pill{font-variant-numeric:tabular-nums;background:#0a0f18;border:1px solid var(--line);border-radius:8px;padding:3px 9px;color:var(--gold)}
-.verdict{font-weight:700}
-.in-set{color:var(--ok)} .out-set{color:var(--pink)}
-.answer{display:inline-block;background:#0a0f18;border:1px solid var(--gold);border-radius:8px;padding:4px 12px;color:var(--gold);font-weight:700;margin-top:6px}
-footer{text-align:center;color:var(--mut);font-size:.8rem;margin-top:34px;padding-top:16px;border-top:1px solid var(--line)}
-.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--mut);margin-top:8px}
-.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.step h2{margin:0 0 4px;font-size:1.15rem;color:var(--acc)}
+.step .lead{color:var(--gold);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.intuition{background:#10202b;border-left:3px solid var(--acc);padding:10px 13px;border-radius:8px;margin:12px 0;color:#bfe6ff;font-size:.95rem}
+.figure{background:#0a0f18;border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0}
+.figure>svg{display:block;width:100%;height:auto;touch-action:none}
+
+/* ===== 大号数字面板 ===== */
+.numpad{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0}
+.np{background:#0a0f18;border:1px solid var(--line);border-radius:10px;padding:10px 6px;text-align:center}
+.np .lbl{font-size:.72rem;color:var(--mut);margin-bottom:4px;white-space:nowrap}
+.np .val{font-size:1.35rem;font-weight:800;font-variant-numeric:tabular-nums;font-family:"SF Mono",Menlo,Consolas,monospace}
+.np.base .val{color:var(--gold)}
+.np.move .val{color:var(--acc)}
+.np.delta{transition:.2s}
+.np.delta.up{border-color:var(--ok)} .np.delta.up .val{color:var(--ok)}
+.np.delta.down{border-color:var(--pink)} .np.delta.down .val{color:var(--pink)}
+
+/* ===== 判定横幅 ===== */
+.verdict-bar{margin:10px 0;padding:12px;border-radius:10px;text-align:center;font-weight:800;font-size:1.05rem;transition:.2s}
+.verdict-bar.in{background:rgba(86,224,154,.15);border:1px solid var(--ok);color:var(--ok)}
+.verdict-bar.out{background:rgba(255,143,179,.12);border:1px solid var(--pink);color:var(--pink)}
+
+/* ===== 答案进度条 ===== */
+.ansbar-wrap{margin:12px 0}
+.ansbar-wrap .cap{font-size:.78rem;color:var(--mut);margin-bottom:5px}
+.ansbar{position:relative;height:30px;background:#0a0f18;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.ansbar .zone{position:absolute;top:0;bottom:0;background:rgba(86,224,154,.22);border-left:1px dashed var(--ok);border-right:1px dashed var(--ok)}
+.ansbar .marker{position:absolute;top:-3px;width:3px;height:36px;background:var(--gold);box-shadow:0 0 6px var(--gold)}
+.ansbar .tick{position:absolute;top:0;bottom:0;width:1px;background:#26303f}
+.ansbar-lab{display:flex;justify-content:space-between;font-size:.7rem;color:var(--mut);margin-top:3px;font-variant-numeric:tabular-nums}
+
+/* ===== 滑块（手机大拇指友好）===== */
+.ctrl{margin-top:12px}
+.ctrl .row{display:flex;align-items:center;gap:10px;font-size:.95rem;flex-wrap:wrap}
+.ctrl .dlabel{font-weight:700;color:var(--ink)}
+.pill{font-variant-numeric:tabular-nums;background:#0a0f18;border:1px solid var(--gold);border-radius:8px;padding:4px 12px;color:var(--gold);font-weight:800;font-size:1.1rem;min-width:64px;text-align:center}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:38px;background:transparent;margin:4px 0}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:6px;background:linear-gradient(90deg,#1c2734,#2a3a4d)}
+input[type=range]::-moz-range-track{height:8px;border-radius:6px;background:#2a3a4d}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:30px;border-radius:50%;background:var(--acc);border:3px solid #0a0f18;box-shadow:0 0 8px rgba(94,200,255,.6);margin-top:-11px;cursor:pointer}
+input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:var(--acc);border:3px solid #0a0f18;cursor:pointer}
+.hint{font-size:.78rem;color:var(--mut);text-align:center;margin-top:4px}
+
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.78rem;color:var(--mut);margin-top:8px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:middle}
+.answer{display:inline-block;background:#0a0f18;border:1px solid var(--gold);border-radius:8px;padding:5px 13px;color:var(--gold);font-weight:800;margin-top:8px;font-size:1.05rem}
 .tabs{display:flex;gap:6px;margin:10px 0}
-.tabs button{background:#0a0f18;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:5px 12px;cursor:pointer;font-size:.85rem}
-.tabs button.on{border-color:var(--acc);color:var(--acc)}
-.nav{position:fixed;right:14px;bottom:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;display:flex;flex-direction:column;gap:6px;font-size:.75rem}
-.nav a{color:var(--mut);text-decoration:none;padding:3px 8px;border-radius:6px}
-.nav a:hover{background:#0a0f18;color:var(--acc)}
+.tabs button{flex:1;background:#0a0f18;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:9px 8px;cursor:pointer;font-size:.85rem;font-weight:600}
+.tabs button.on{border-color:var(--acc);color:var(--acc);background:#10202b}
+footer{text-align:center;color:var(--mut);font-size:.78rem;margin-top:30px;padding-top:16px;border-top:1px solid var(--line)}
+.nav{position:fixed;right:10px;bottom:10px;background:rgba(20,27,38,.95);border:1px solid var(--line);border-radius:12px;padding:6px;display:flex;gap:4px;font-size:.72rem;backdrop-filter:blur(6px)}
+.nav a{color:var(--mut);text-decoration:none;padding:6px 9px;border-radius:7px}
+.nav a:active{background:#0a0f18;color:var(--acc)}
+
+@media(max-width:560px){
+  header h1{font-size:1.15rem}
+  .step{padding:15px 12px}
+  .numpad{gap:6px}
+  .np .val{font-size:1.15rem}
+  .np .lbl{font-size:.66rem}
+  .nav{right:8px;bottom:8px}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
   <h1>🎬 动画讲解：高考压轴题里的集合 $D(x)$</h1>
-  <div class="sub">2026 新高考 I 卷 · 第 19 题（17分）· 拖动滑块，亲手感受这道题</div>
+  <div class="sub">2026 新高考 I 卷 · 第 19 题（17分）· 拖动滑块，看数字怎么变</div>
 </header>
 
 <!-- STEP 0: 核心直觉 -->
 <section class="step" id="s0">
   <div class="lead">先建立直觉</div>
   <h2>$D(x_0)$ 到底在问什么？</h2>
-  <p>$D(x_0)=\{\,d:\;f(x_0+d)>f(x_0)\,\}$。翻译成人话：</p>
-  <div class="intuition">站在点 $x_0$，向右（或向左）走一步 $d$。如果走过去之后<b>函数值变大了</b>，这一步 $d$ 就被收进集合 $D(x_0)$。<br>所以 <b>$D(x_0)$ 就是「所有能让函数值上升的位移」的集合。</b></div>
+  <div class="intuition">站在点 $x_0$，往旁边走一步 $d$。走过去之后<b>函数值变大了吗？</b><br>变大 → 这一步 $d$ 收进 $D(x_0)$；变小 → 不要。<br><b>$D(x_0)$ = 所有「能让函数值上升」的位移 $d$ 的集合。</b></div>
   <div class="figure">
-    <svg id="svgIntu" viewBox="0 0 600 260" width="100%"></svg>
-    <div class="ctrl">
-      <span>位移 $d=$ <span class="pill" id="dVal">0.50</span></span>
-      <input type="range" id="dSlide" min="-1.8" max="1.8" step="0.01" value="0.5">
-      <span id="verdict" class="verdict"></span>
+    <svg id="svgIntu" viewBox="0 0 600 240"></svg>
+    <!-- 数字面板 -->
+    <div class="numpad">
+      <div class="np base"><div class="lbl">起点 $f(x_0)$</div><div class="val" id="i_base">–</div></div>
+      <div class="np move"><div class="lbl">走到 $f(x_0{+}d)$</div><div class="val" id="i_move">–</div></div>
+      <div class="np delta" id="i_dbox"><div class="lbl">变化量</div><div class="val" id="i_delta">–</div></div>
     </div>
-    <div class="legend"><span><i style="background:#5ec8ff"></i>$f(x)$ 曲线</span><span><i style="background:#ffce5c"></i>基准点 $x_0$</span><span><i style="background:#56e09a"></i>$d∈D$（更高）</span><span><i style="background:#ff8fb3"></i>$d∉D$（更低）</span></div>
+    <div class="verdict-bar" id="i_verdict">–</div>
+    <div class="ctrl">
+      <div class="row"><span class="dlabel">位移 $d$ =</span><span class="pill" id="dVal">0.50</span></div>
+      <input type="range" id="dSlide" min="-1.8" max="1.8" step="0.01" value="0.5">
+      <div class="hint">👆 拖动我，看上面三个数字怎么跳</div>
+    </div>
+    <div class="legend"><span><i style="background:#5ec8ff"></i>$f(x)$ 曲线</span><span><i style="background:#ffce5c"></i>起点 $x_0$</span><span><i style="background:#56e09a"></i>升高 ($d\in D$)</span><span><i style="background:#ff8fb3"></i>降低 ($d\notin D$)</span></div>
   </div>
 </section>
 
@@ -67,14 +122,27 @@ footer{text-align:center;color:var(--mut);font-size:.8rem;margin-top:34px;paddin
 <section class="step" id="s1">
   <div class="lead">第 (1) 问 · 热身</div>
   <h2>求 $D(-1)$</h2>
-  <p>这里 $f(x)=2^x\,(x<0)$，$f(x)=1-x\,(x\ge0)$。基准值 $f(-1)=2^{-1}=\tfrac12$。我们要找所有让 $f(-1+d)>\tfrac12$ 的 $d$。</p>
+  <p style="margin:.3em 0;font-size:.95rem">这里 $f(x)=2^x\,(x<0)$，$f(x)=1-x\,(x\ge0)$。起点值 $f(-1)=2^{-1}=0.5$。<br>要找所有让 $f(-1+d)>0.5$ 的 $d$。</p>
   <div class="figure">
-    <svg id="svgP1" viewBox="0 0 600 260" width="100%"></svg>
-    <div class="ctrl"><span>位移 $d=$ <span class="pill" id="d1Val">0.50</span></span>
+    <svg id="svgP1" viewBox="0 0 600 240"></svg>
+    <div class="numpad">
+      <div class="np base"><div class="lbl">门槛 $f(-1)$</div><div class="val" id="p1_base">0.50</div></div>
+      <div class="np move"><div class="lbl">$f(-1{+}d)$</div><div class="val" id="p1_move">–</div></div>
+      <div class="np delta" id="p1_dbox"><div class="lbl">高出门槛</div><div class="val" id="p1_delta">–</div></div>
+    </div>
+    <div class="verdict-bar" id="p1_verdict">–</div>
+    <!-- 答案进度条 -->
+    <div class="ansbar-wrap">
+      <div class="cap">这条是 $d$ 的数轴 · 绿区 $=$ 最终答案 $D(-1)=(0,\tfrac32)$ · 金标 $=$ 当前 $d$</div>
+      <div class="ansbar" id="p1_ansbar"></div>
+      <div class="ansbar-lab"><span>d=−1</span><span>0</span><span>3/2</span><span>d=2.2</span></div>
+    </div>
+    <div class="ctrl">
+      <div class="row"><span class="dlabel">位移 $d$ =</span><span class="pill" id="d1Val">0.50</span></div>
       <input type="range" id="d1Slide" min="-1" max="2.2" step="0.01" value="0.5">
-      <span id="v1" class="verdict"></span></div>
-    <div class="intuition">绿色高亮的那段 $d$ 就是答案。两段拼起来：$0<d<1$（落在指数段）与 $1\le d<\tfrac32$（落在直线段）。</div>
-    <span class="answer">$D(-1)=\left(0,\tfrac32\right)$</span>
+      <div class="hint">👆 拖动看金色标记进出绿区 — 在绿区里 $d$ 就属于答案</div>
+    </div>
+    <span class="answer">✅ 答案：$D(-1)=\left(0,\tfrac32\right)$</span>
   </div>
 </section>
 
@@ -82,12 +150,12 @@ footer{text-align:center;color:var(--mut);font-size:.8rem;margin-top:34px;paddin
 <section class="step" id="s2">
   <div class="lead">第 (2) 问 · 奇函数</div>
   <h2>为什么 $f(x_1)\le f(x_2)$ 能推出 $D(x_2)\subseteq D(x_1)$？</h2>
-  <p>$f$ 是奇函数 ⟹ $f(x)=2^x(x<0),\,0(x=0),\,-2^{-x}(x>0)$ —— 一条<b>整体单调上升</b>的曲线，负半轴的值永远高于正半轴。</p>
-  <div class="intuition"><b>关键洞察：</b>函数值越低的点，越「容易」往上走 —— 能让它上升的位移更多。所以 $f(x_1)\le f(x_2)$（$x_1$ 站得低）时，$x_2$ 的上升位移 $D(x_2)$ 一定被 $x_1$ 的 $D(x_1)$ 全部包住。</div>
+  <p style="margin:.3em 0;font-size:.95rem">$f$ 是奇函数 ⟹ 一条<b>整体上升</b>的曲线：负半轴 $2^x\in(0,1)$，正半轴 $-2^{-x}\in(-1,0)$。</p>
+  <div class="intuition"><b>一句话直觉：</b>站得越低的点，越「容易」往上走 —— 能上升的位移更多。所以 $x_1$ 站得低（值更小），它的上升位移集合 $D(x_1)$ 就更大，把 $D(x_2)$ 整个包住。</div>
   <div class="figure">
-    <svg id="svgP2" viewBox="0 0 600 240" width="100%"></svg>
+    <svg id="svgP2" viewBox="0 0 600 250"></svg>
     <div class="legend"><span><i style="background:#ffce5c"></i>$x_1$（低，集合大）</span><span><i style="background:#ff8fb3"></i>$x_2$（高，集合小）</span><span><i style="background:#56e09a"></i>$D$ 区间</span></div>
-    <p style="margin:8px 0 0;color:var(--mut);font-size:.86rem">下方两条数轴画出 $D(x_1)$（黄）与 $D(x_2)$（粉）：粉色整段落在黄色之内 → $D(x_2)\subseteq D(x_1)$。</p>
+    <p style="margin:8px 0 0;color:var(--mut);font-size:.84rem">下方两条数轴是 $D(x_1)$（黄）与 $D(x_2)$（粉）：<b>粉色整段都落在黄色里 → $D(x_2)\subseteq D(x_1)$</b>。</p>
   </div>
 </section>
 
@@ -95,67 +163,73 @@ footer{text-align:center;color:var(--mut);font-size:.8rem;margin-top:34px;paddin
 <section class="step" id="s3">
   <div class="lead">第 (3) 问 · 压轴之眼</div>
   <h2>从「局部线索」逼出「整体单调」</h2>
-  <p>只知道两条抽象规则（① 值低集合大；② $0<x<1$ 时 $f(x)<f(0)$）和负半轴 $f=2^x$，要证 $f(0)\ge1$ 且 $f$ 在 $(0,+\infty)$ 递增。</p>
-  <div class="tabs"><button class="on" data-t="i">(i) $f(0)\ge1$</button><button data-t="ii">(ii) 单调递增</button></div>
+  <p style="margin:.3em 0;font-size:.95rem">只知道两条抽象规则（① 值低集合大；② $0<x<1$ 时 $f(x)<f(0)$）和负半轴 $f=2^x$，要证 $f(0)\ge1$ 且 $f$ 在 $(0,+\infty)$ 递增。</p>
+  <div class="tabs"><button class="on" data-t="i">(i) 证 $f(0)\ge1$</button><button data-t="ii">(ii) 证单调递增</button></div>
   <div id="t-i" class="intuition">
-    <b>反证：</b>设 $f(0)<1$。因为 $x\to0^-$ 时 $2^x\to1$，能取一个 $x_0<0$ 紧贴 0，使 $f(0)<f(x_0)<1$。<br>
-    由规则①得 $D(x_0)\subseteq D(0)$。可此时位移 $d=-x_0/2$ 让 $x_0$ 沿指数段升高 ⟹ $d\in D(x_0)$；但 $0<d<1$ 时规则②说 $f(d)<f(0)$ ⟹ $d\notin D(0)$。<b>矛盾！</b>所以 $f(0)\ge1$。
+    <b>反证：</b>假设 $f(0)<1$。因为 $x\to0^-$ 时 $2^x\to1$，能取一个紧贴 0 的 $x_0<0$，使 $f(0)<f(x_0)<1$。<br>
+    由规则① 得 $D(x_0)\subseteq D(0)$。但位移 $d=-x_0/2$ 让 $x_0$ 沿指数段升高 ⟹ $d\in D(x_0)$；可 $0<d<1$ 时规则②说 $f(d)<f(0)$ ⟹ $d\notin D(0)$。<b>矛盾！</b>所以 $f(0)\ge1$。
   </div>
   <div id="t-ii" class="intuition" style="display:none">
-    <b>引理 P（点睛）：</b>对 $0<u<1$，必有 $f(u)\le 2^{u-1}<1$。<br>
-    否则 $f(u)>f(u-1)=2^{u-1}$，由①得 $D(u)\subseteq D(u-1)$，却能找到位移 $-u$ 属于 $D(u)$ 而不属于 $D(u-1)$ —— 矛盾。<br>
-    这把<b>负半轴的已知信息「灌」进了未知的正半轴</b>，压住 $(0,1)$ 上的取值，再用同样的「找一个位移制造矛盾」的手法，逼出 $(0,+\infty)$ 上严格递增。这一步被一线老师称为「考场近废题」。
+    <b>引理 P（点睛）：</b>对 $0<u<1$，必有 $f(u)\le 2^{u-1}<1$（下面红色虚线就是这个「天花板」）。<br>
+    否则 $f(u)>f(u-1)=2^{u-1}$，由① 得 $D(u)\subseteq D(u-1)$，却能找到位移 $-u\in D(u)$ 而 $\notin D(u-1)$ —— 矛盾。<br>
+    这把<b>负半轴的已知信息「灌」进了未知的正半轴</b>，压住 $(0,1)$ 上的取值，再用同样的「找一个位移制造矛盾」手法，逼出 $(0,+\infty)$ 严格递增。这一步被一线老师称为「考场近废题」。
   </div>
   <div class="figure">
-    <svg id="svgP3" viewBox="0 0 600 220" width="100%"></svg>
-    <p style="margin:8px 0 0;color:var(--mut);font-size:.86rem">红色虚线 $y=2^{x-1}$ 是引理 P 给出的「天花板」，把 $(0,1)$ 上的 $f$ 牢牢压在下面。</p>
+    <svg id="svgP3" viewBox="0 0 600 230"></svg>
+    <p style="margin:8px 0 0;color:var(--mut);font-size:.84rem">红色虚线 $y=2^{x-1}$ 是引理 P 给的「天花板」，把 $(0,1)$ 上的 $f$ 牢牢压在下面；绿点标出 $f(0)\ge1$。</p>
   </div>
 </section>
 
 <footer>
-  动画为帮助理解而绘制，函数形态为示意 · 完整严格证明见 <code>index.html</code> / <code>claude_solution.md</code><br>
-  🤖 Generated with Claude Code · 开源项目 gaokao2026-math-solver
+  动画为帮助理解而绘制，函数形态为示意 · 完整严格证明见 <a href="index.html" style="color:var(--acc)">标准解答页</a><br>
+  🤖 Generated with Claude Code · 开源项目 <a href="https://github.com/oyzh888/gaokao2026-math-solver" style="color:var(--acc)">gaokao2026-math-solver</a>
 </footer>
 </div>
 
-<div class="nav"><a href="#s0">直觉</a><a href="#s1">(1)</a><a href="#s2">(2)</a><a href="#s3">(3)</a><a href="index.html">证明→</a></div>
+<div class="nav"><a href="#s0">直觉</a><a href="#s1">(1)</a><a href="#s2">(2)</a><a href="#s3">(3)</a><a href="compare.html">对比→</a></div>
 
 <script>
-// ---------- helpers ----------
 const NS="http://www.w3.org/2000/svg";
 function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;}
-// piecewise for step0/2: odd-ish monotone: f=2^x (x<0), -2^-x (x>0)
+function txt(svg,x,y,s,fill,size){const t=el("text",{x,y,fill,"font-size":size||13,"font-weight":600});t.appendChild(document.createTextNode(s));svg.appendChild(t);}
+function fmt(v){return (v>=0?"":"−")+Math.abs(v).toFixed(2);}
+// piecewise
 function fOdd(x){return x<0?Math.pow(2,x):(x>0?-Math.pow(2,-x):0);}
-// step1 piecewise: 2^x (x<0), 1-x (x>=0)
 function fP1(x){return x<0?Math.pow(2,x):1-x;}
 
-// ---------- STEP 0 intuition ----------
+// ---------- STEP 0 ----------
 (function(){
-  const svg=document.getElementById('svgIntu'),W=600,H=260,x0=-0.6;
-  const X=x=>300+x*120, Y=y=>130-y*70;
+  const svg=document.getElementById('svgIntu'),W=600,H=240,x0=-0.6;
+  const X=x=>300+x*120, Y=y=>120-y*65;
   function draw(d){
     svg.innerHTML="";
     svg.appendChild(el("line",{x1:0,y1:Y(0),x2:W,y2:Y(0),stroke:"#26303f"}));
     svg.appendChild(el("line",{x1:X(0),y1:0,x2:X(0),y2:H,stroke:"#26303f"}));
-    // curve
-    let dpath="";for(let px=-2.4;px<=2.4;px+=0.04){const xx=X(px),yy=Y(fOdd(px));dpath+=(dpath?"L":"M")+xx+" "+yy;}
-    svg.appendChild(el("path",{d:dpath,fill:"none",stroke:"#5ec8ff","stroke-width":2.5}));
+    let dp="";for(let px=-2.4;px<=2.4;px+=0.04){dp+=(dp?"L":"M")+X(px)+" "+Y(fOdd(px));}
+    svg.appendChild(el("path",{d:dp,fill:"none",stroke:"#5ec8ff","stroke-width":2.5}));
     const y0=fOdd(x0), y1=fOdd(x0+d), up=y1>y0;
-    // base point
-    svg.appendChild(el("circle",{cx:X(x0),cy:Y(y0),r:6,fill:"#ffce5c"}));
-    svg.appendChild(el("text",{x:X(x0)-6,y:Y(y0)-12,fill:"#ffce5c","font-size":13},).appendChild(document.createTextNode("x₀"))||svg.lastChild);
-    // moved point
+    // 起点水平参考线
+    svg.appendChild(el("line",{x1:0,y1:Y(y0),x2:W,y2:Y(y0),stroke:"#ffce5c","stroke-dasharray":"2 6",opacity:.45}));
     const col=up?"#56e09a":"#ff8fb3";
-    svg.appendChild(el("circle",{cx:X(x0+d),cy:Y(y1),r:6,fill:col}));
-    // arrow base->moved (horizontal then vertical guide)
-    svg.appendChild(el("line",{x1:X(x0),y1:Y(y0),x2:X(x0+d),y2:Y(y0),stroke:col,"stroke-dasharray":"4 3"}));
-    svg.appendChild(el("line",{x1:X(x0+d),y1:Y(y0),x2:X(x0+d),y2:Y(y1),stroke:col,"stroke-width":2}));
-    // dashed compare line
-    svg.appendChild(el("line",{x1:0,y1:Y(y0),x2:W,y2:Y(y0),stroke:"#ffce5c","stroke-dasharray":"2 5",opacity:.5}));
-    const t=document.getElementById('verdict');
-    t.textContent=up?"↑ 值变大 → d ∈ D(x₀)":"↓ 值变小 → d ∉ D(x₀)";
-    t.className="verdict "+(up?"in-set":"out-set");
-    document.getElementById('dVal').textContent=d.toFixed(2);
+    // 位移箭头：水平 then 垂直
+    svg.appendChild(el("line",{x1:X(x0),y1:Y(y0),x2:X(x0+d),y2:Y(y0),stroke:col,"stroke-dasharray":"4 3","stroke-width":1.5}));
+    svg.appendChild(el("line",{x1:X(x0+d),y1:Y(y0),x2:X(x0+d),y2:Y(y1),stroke:col,"stroke-width":3}));
+    // 垂直变化量的小箭头头
+    const ay=Y(y1);svg.appendChild(el("path",{d:`M${X(x0+d)-5} ${ay+(up?7:-7)} L${X(x0+d)} ${ay} L${X(x0+d)+5} ${ay+(up?7:-7)}`,fill:"none",stroke:col,"stroke-width":3}));
+    svg.appendChild(el("circle",{cx:X(x0),cy:Y(y0),r:7,fill:"#ffce5c"}));
+    txt(svg,X(x0)-26,Y(y0)-10,"x₀","#ffce5c",14);
+    svg.appendChild(el("circle",{cx:X(x0+d),cy:Y(y1),r:7,fill:col}));
+    txt(svg,X(x0+d)+8,Y(y1)+(up?-8:16),"x₀+d",col,13);
+    // 数字面板
+    document.getElementById('i_base').textContent=fmt(y0);
+    document.getElementById('i_move').textContent=fmt(y1);
+    const dd=y1-y0, db=document.getElementById('i_dbox');
+    document.getElementById('i_delta').textContent=(dd>=0?"+":"−")+Math.abs(dd).toFixed(2);
+    db.className="np delta "+(up?"up":"down");
+    const vb=document.getElementById('i_verdict');
+    vb.textContent=up?"↑ 升高了 → 这步 d 属于 D(x₀) ✓":"↓ 降低了 → 这步 d 不属于 D(x₀) ✗";
+    vb.className="verdict-bar "+(up?"in":"out");
+    document.getElementById('dVal').textContent=fmt(d);
   }
   document.getElementById('dSlide').addEventListener('input',e=>draw(+e.target.value));
   draw(0.5);
@@ -163,74 +237,84 @@ function fP1(x){return x<0?Math.pow(2,x):1-x;}
 
 // ---------- STEP 1 ----------
 (function(){
-  const svg=document.getElementById('svgP1'),W=600,H=260,base=-1;
-  const X=x=>120+x*120, Y=y=>200-y*95;
+  const svg=document.getElementById('svgP1'),W=600,H=240,base=-1;
+  const X=x=>120+x*120, Y=y=>185-y*90;
+  const bar=document.getElementById('p1_ansbar');
+  // 答案条：d 轴范围 [-1, 2.2]，绿区 (0, 1.5)
+  function setupBar(){
+    bar.innerHTML="";
+    const lo=-1,hi=2.2,w=x=>((x-lo)/(hi-lo))*100;
+    const z=el("div",{});z.className="zone";z.setAttribute("style",`left:${w(0)}%;width:${w(1.5)-w(0)}%`);
+    bar.appendChild(z);
+    [0,1.5].forEach(t=>{const k=document.createElement('div');k.className='tick';k.style.left=w(t)+'%';bar.appendChild(k);});
+    const m=document.createElement('div');m.className='marker';m.id='p1_marker';bar.appendChild(m);
+  }
   function draw(d){
     svg.innerHTML="";
     svg.appendChild(el("line",{x1:0,y1:Y(0),x2:W,y2:Y(0),stroke:"#26303f"}));
     svg.appendChild(el("line",{x1:X(0),y1:0,x2:X(0),y2:H,stroke:"#26303f"}));
-    // shade answer region on curve where f> .5  : d in (0,1.5) => x in (-1,0.5)
-    let dpath="";for(let px=-2.2;px<=2.4;px+=0.03){const xx=X(px),yy=Y(fP1(px));dpath+=(dpath?"L":"M")+xx+" "+yy;}
-    svg.appendChild(el("path",{d:dpath,fill:"none",stroke:"#5ec8ff","stroke-width":2.5}));
-    // threshold y=1/2
-    svg.appendChild(el("line",{x1:0,y1:Y(.5),x2:W,y2:Y(.5),stroke:"#ffce5c","stroke-dasharray":"3 4",opacity:.7}));
-    svg.appendChild(el("text",{x:6,y:Y(.5)-4,fill:"#ffce5c","font-size":12},).appendChild(document.createTextNode("f(-1)=½"))||svg.lastChild);
-    const yb=.5, ym=fP1(base+d), up=ym>yb;
-    svg.appendChild(el("circle",{cx:X(base),cy:Y(yb),r:6,fill:"#ffce5c"}));
-    const col=up?"#56e09a":"#ff8fb3";
-    svg.appendChild(el("circle",{cx:X(base+d),cy:Y(ym),r:6,fill:col}));
-    svg.appendChild(el("line",{x1:X(base+d),y1:Y(yb),x2:X(base+d),y2:Y(ym),stroke:col,"stroke-width":2}));
-    const t=document.getElementById('v1');
-    t.textContent=up?"f(-1+d)>½ → d∈D(-1)":"f(-1+d)≤½ → d∉D(-1)";
-    t.className="verdict "+(up?"in-set":"out-set");
-    document.getElementById('d1Val').textContent=d.toFixed(2);
+    let dp="";for(let px=-2.2;px<=2.4;px+=0.03){dp+=(dp?"L":"M")+X(px)+" "+Y(fP1(px));}
+    svg.appendChild(el("path",{d:dp,fill:"none",stroke:"#5ec8ff","stroke-width":2.5}));
+    // 门槛线 y=0.5
+    svg.appendChild(el("line",{x1:0,y1:Y(.5),x2:W,y2:Y(.5),stroke:"#ffce5c","stroke-dasharray":"4 4",opacity:.8}));
+    txt(svg,6,Y(.5)-5,"门槛 f(−1)=0.5","#ffce5c",12);
+    const yb=.5, ym=fP1(base+d), up=ym>yb, col=up?"#56e09a":"#ff8fb3";
+    svg.appendChild(el("circle",{cx:X(base),cy:Y(yb),r:7,fill:"#ffce5c"}));
+    svg.appendChild(el("line",{x1:X(base+d),y1:Y(yb),x2:X(base+d),y2:Y(ym),stroke:col,"stroke-width":3}));
+    svg.appendChild(el("circle",{cx:X(base+d),cy:Y(ym),r:7,fill:col}));
+    txt(svg,X(base+d)+8,Y(ym)+(up?-8:16),"−1+d",col,12);
+    // 面板
+    document.getElementById('p1_move').textContent=fmt(ym);
+    const dd=ym-yb,db=document.getElementById('p1_dbox');
+    document.getElementById('p1_delta').textContent=(dd>=0?"+":"−")+Math.abs(dd).toFixed(2);
+    db.className="np delta "+(up?"up":"down");
+    const vb=document.getElementById('p1_verdict');
+    const inAns=(d>0&&d<1.5);
+    vb.textContent=inAns?"✓ f(−1+d) > 0.5 → d 属于 D(−1)":"✗ f(−1+d) ≤ 0.5 → d 不属于 D(−1)";
+    vb.className="verdict-bar "+(inAns?"in":"out");
+    document.getElementById('d1Val').textContent=fmt(d);
+    // marker
+    const lo=-1,hi=2.2;const m=document.getElementById('p1_marker');
+    if(m) m.style.left=((d-lo)/(hi-lo))*100+'%';
   }
+  setupBar();
   document.getElementById('d1Slide').addEventListener('input',e=>draw(+e.target.value));
   draw(0.5);
 })();
 
-// ---------- STEP 2 static ----------
+// ---------- STEP 2 (static) ----------
 (function(){
-  const svg=document.getElementById('svgP2'),W=600,H=240;
-  const X=x=>300+x*110, Y=y=>90-y*55;
+  const svg=document.getElementById('svgP2'),W=600,H=250;
+  const X=x=>300+x*105, Y=y=>80-y*52;
   svg.appendChild(el("line",{x1:0,y1:Y(0),x2:W,y2:Y(0),stroke:"#26303f"}));
-  let dpath="";for(let px=-2.4;px<=2.4;px+=0.04){const xx=X(px),yy=Y(fOdd(px));dpath+=(dpath?"L":"M")+xx+" "+yy;}
-  svg.appendChild(el("path",{d:dpath,fill:"none",stroke:"#5ec8ff","stroke-width":2.5}));
-  const x1=-1.2,x2=0.8; // x1 low value (neg side high), x2 high index but value low
-  // value: f(x1)=2^-1.2≈.435 ; f(x2)=-2^-0.8≈-.574  => f(x1)>f(x2). need f(x1)<=f(x2). swap roles:
-  // choose x1 with LOWER value: x2pos has lower value. Let x1=0.8(value -.574 low), x2=-1.2(value .435 high)? then f(x1)<=f(x2) ok.
-  const a=0.8,b=-1.2; // a=x1 low-value, b=x2 high-value
-  svg.appendChild(el("circle",{cx:X(a),cy:Y(fOdd(a)),r:6,fill:"#ffce5c"}));
-  svg.appendChild(el("circle",{cx:X(b),cy:Y(fOdd(b)),r:6,fill:"#ff8fb3"}));
-  // D number lines below
-  function axis(yy,label){svg.appendChild(el("line",{x1:40,y1:yy,x2:560,y2:yy,stroke:"#3a4658"}));svg.appendChild(el("text",{x:6,y:yy+4,fill:"#93a1b5","font-size":12},).appendChild(document.createTextNode(label))||svg.lastChild);}
-  const xl=d=>300+d*55;
-  axis(170,"D(x₁)");axis(210,"D(x₂)");
-  // D(x1) for a=0.8>0: (-inf,-a]∪(0,inf) -> draw big; D(x2) for b=-1.2<0:(0,-b)=(0,1.2)
-  svg.appendChild(el("rect",{x:xl(-3),y:163,width:xl(-0.8)-xl(-3),height:8,fill:"#ffce5c",opacity:.85}));
-  svg.appendChild(el("rect",{x:xl(0),y:163,width:xl(3)-xl(0),height:8,fill:"#ffce5c",opacity:.85}));
-  svg.appendChild(el("rect",{x:xl(0),y:203,width:xl(1.2)-xl(0),height:8,fill:"#ff8fb3"}));
-  svg.appendChild(el("text",{x:430,y:150,fill:"#56e09a","font-size":13},).appendChild(document.createTextNode("粉⊆黄 ✓"))||svg.lastChild);
+  let dp="";for(let px=-2.4;px<=2.4;px+=0.04){dp+=(dp?"L":"M")+X(px)+" "+Y(fOdd(px));}
+  svg.appendChild(el("path",{d:dp,fill:"none",stroke:"#5ec8ff","stroke-width":2.5}));
+  const a=0.8,b=-1.2; // a=x1 低值, b=x2 高值
+  svg.appendChild(el("circle",{cx:X(a),cy:Y(fOdd(a)),r:7,fill:"#ffce5c"}));txt(svg,X(a)+8,Y(fOdd(a))+16,"x₁ 值低","#ffce5c",12);
+  svg.appendChild(el("circle",{cx:X(b),cy:Y(fOdd(b)),r:7,fill:"#ff8fb3"}));txt(svg,X(b)-58,Y(fOdd(b))-8,"x₂ 值高","#ff8fb3",12);
+  const xl=d=>300+d*52;
+  function axis(yy,label,c){svg.appendChild(el("line",{x1:55,y1:yy,x2:560,y2:yy,stroke:"#3a4658"}));txt(svg,6,yy+4,label,c||"#93a1b5",12);}
+  axis(175,"D(x₁)","#ffce5c");axis(218,"D(x₂)","#ff8fb3");
+  svg.appendChild(el("rect",{x:xl(-3),y:168,width:xl(-0.8)-xl(-3),height:9,rx:2,fill:"#ffce5c",opacity:.85}));
+  svg.appendChild(el("rect",{x:xl(0),y:168,width:xl(3)-xl(0),height:9,rx:2,fill:"#ffce5c",opacity:.85}));
+  svg.appendChild(el("rect",{x:xl(0),y:211,width:xl(1.2)-xl(0),height:9,rx:2,fill:"#ff8fb3"}));
+  txt(svg,xl(1.4),216,"粉 ⊆ 黄 ✓","#56e09a",13);
 })();
 
-// ---------- STEP 3 ceiling ----------
+// ---------- STEP 3 ----------
 (function(){
-  const svg=document.getElementById('svgP3'),W=600,H=220;
-  const X=x=>120+x*150, Y=y=>150-y*90;
+  const svg=document.getElementById('svgP3'),W=600,H=230;
+  const X=x=>120+x*150, Y=y=>160-y*95;
   svg.appendChild(el("line",{x1:0,y1:Y(0),x2:W,y2:Y(0),stroke:"#26303f"}));
   svg.appendChild(el("line",{x1:X(0),y1:0,x2:X(0),y2:H,stroke:"#26303f"}));
-  // 2^x on x<0
   let p="";for(let px=-2.2;px<0;px+=0.03){p+=(p?"L":"M")+X(px)+" "+Y(Math.pow(2,px));}
   svg.appendChild(el("path",{d:p,fill:"none",stroke:"#5ec8ff","stroke-width":2.5}));
-  // ceiling y=2^{x-1} on (0,1)
   let c="";for(let px=0;px<=1.2;px+=0.02){c+=(c?"L":"M")+X(px)+" "+Y(Math.pow(2,px-1));}
   svg.appendChild(el("path",{d:c,fill:"none",stroke:"#ff8fb3","stroke-width":2,"stroke-dasharray":"5 4"}));
-  svg.appendChild(el("text",{x:X(1.05),y:Y(Math.pow(2,0.05))-6,fill:"#ff8fb3","font-size":12},).appendChild(document.createTextNode("y=2^(x-1) 天花板"))||svg.lastChild);
-  // f(0)>=1 marker
-  svg.appendChild(el("circle",{cx:X(0),cy:Y(1),r:5,fill:"#56e09a"}));
-  svg.appendChild(el("text",{x:X(0)+8,y:Y(1)-6,fill:"#56e09a","font-size":12},).appendChild(document.createTextNode("f(0)≥1"))||svg.lastChild);
-  // shaded allowed region under ceiling
-  svg.appendChild(el("text",{x:X(0.3),y:Y(0.25),fill:"#93a1b5","font-size":12},).appendChild(document.createTextNode("f 被压在此下方"))||svg.lastChild);
+  txt(svg,X(0.75),Y(Math.pow(2,-0.1)),"天花板 y=2^(x−1)","#ff8fb3",12);
+  svg.appendChild(el("circle",{cx:X(0),cy:Y(1),r:6,fill:"#56e09a"}));
+  txt(svg,X(0)+10,Y(1)-6,"f(0)≥1","#56e09a",13);
+  txt(svg,X(0.28),Y(0.28),"f 被压在此下方","#93a1b5",12);
 })();
 
 // tabs
@@ -239,9 +323,8 @@ document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',
   document.getElementById('t-i').style.display=b.dataset.t==='i'?'block':'none';
   document.getElementById('t-ii').style.display=b.dataset.t==='ii'?'block':'none';
 }));
-
-// reveal on scroll
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.1});
 document.querySelectorAll('.step').forEach(s=>io.observe(s));
 </script>
 </body>
