@@ -1,3 +1,12 @@
-paper/source.html
+# scratch / source dumps
 paper/*.html
 __pycache__/
+*.pyc
+.wrangler/
+# model-run logs (kept .md outputs, dropped noisy logs)
+solutions/**/model_runs/*.log
+solutions/**/model_runs/*.err
+*.md.err
+# secrets — never commit
+.env
+*.token

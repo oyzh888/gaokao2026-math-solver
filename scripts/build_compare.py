@@ -45,8 +45,8 @@ MODELS = [
        q1="✅", q2="🟡", q3i="🟡", q3ii="❌", overall="🟡 部分", medal="",
        meta="纯 API（无工具）；(3ii) 自陈『没找到矛盾』未完成——对比 harness 版差距明显"),
   dict(group="api", key="azure_gpt-5", model="GPT-5", vendor="OpenAI (Azure)", vcls="openai",
-       q1="—", q2="—", q3i="—", q3ii="—", overall="— 超时", medal="",
-       meta="reasoning effort 过重，多次超时未产出"),
+       q1="✅", q2="✅", q3i="✅", q3ii="🟡", overall="🟡 接近", medal="🥈",
+       meta="reasoning≈12k tok（low effort 后产出）；(1)(2)(3i) 严格，(3ii) 给出『分割成<1小区间+链式』正确骨架但中间过渡偏概述"),
 
   # ===== 老模型组（看代际进步；纯 API，单次调用）=====
   dict(group="legacy", key="azure_gpt-5-mini", model="GPT-5 mini", vendor="OpenAI (Azure)", vcls="openai",
